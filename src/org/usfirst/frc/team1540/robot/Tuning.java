@@ -30,4 +30,12 @@ public class Tuning {
 		return tuning.getDouble("Intake Rollers Value", 1);
 	}
 	
+	public double getIntakeArmValue() {
+		return tuning.getDouble("Intake Arm Value", 0.5);
+	}
+	
+	public double getIntakeArmCurrentThreshold() {
+		return tuning.getDouble("Intake Arm Current Threshold", 5);
+	}
+	
 }

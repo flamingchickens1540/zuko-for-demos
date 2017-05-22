@@ -3,10 +3,8 @@ package org.usfirst.frc.team1540.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1540.robot.commands.CancelShooter;
@@ -35,8 +33,8 @@ public class Robot extends IterativeRobot {
 //	public static OI oi;
 	public static Tuning tuning;
 
-	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+//	Command autonomousCommand;
+//	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -48,7 +46,7 @@ public class Robot extends IterativeRobot {
 		tuning = new Tuning();
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+//		SmartDashboard.putData("Auto mode", chooser);
 		
 		OI.buttonIntake.whenPressed(new Intake());
 		OI.buttonEject.whileHeld(new Eject());
@@ -85,7 +83,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+//		autonomousCommand = chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -95,8 +93,8 @@ public class Robot extends IterativeRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
-			autonomousCommand.start();
+//		if (autonomousCommand != null)
+//			autonomousCommand.start();
 	}
 
 	/**
@@ -113,8 +111,8 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+//		if (autonomousCommand != null)
+//			autonomousCommand.cancel();
 	}
 
 	/**
@@ -127,6 +125,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Flywheel Setpoint", shooter.getSetpoint());
 		SmartDashboard.putNumber("Flywheel Speed", shooter.getSpeed());
 		SmartDashboard.putBoolean("Flywheel Up To Speed", shooter.upToSpeed(tuning.getFlywheelTargetSpeed()));
+		SmartDashboard.putNumber("Intake Arm Current", intakeArm.getCurrent());
 		
 		OI.driver.setRumble(RumbleType.kRightRumble, 
 				shooter.upToSpeed(Robot.tuning.getFlywheelTargetSpeed()) ? 0.5 : 0);
