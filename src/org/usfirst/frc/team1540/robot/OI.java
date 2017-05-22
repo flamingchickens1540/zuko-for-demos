@@ -24,9 +24,9 @@ public class OI {
 	
 	public static final JoystickButton buttonIntake = new JoystickButton(copilot, 3);
 	public static final JoystickButton buttonSpinup = new JoystickButton(copilot, 1);
-	public static final JoystickButton buttonFire = new JoystickButton(copilot, 4);
+	public static final JoystickButton buttonFire = new JoystickButton(copilot, 6);
 	public static final JoystickButton buttonCancelShooter = new JoystickButton(copilot, 2);
-	public static final JoystickButton buttonEject = new JoystickButton(copilot, 5);
+	public static final JoystickButton buttonEject = new JoystickButton(copilot, 4);
 	
 	private static final int rightAxisY = 5;
     private static final int leftAxisY = 1;
