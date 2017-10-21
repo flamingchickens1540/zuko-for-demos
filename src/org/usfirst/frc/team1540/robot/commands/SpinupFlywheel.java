@@ -12,7 +12,7 @@ public class SpinupFlywheel extends CommandGroup {
 		requires(Robot.shooter);
 		requires(Robot.intakeRollers);
 		
-		addSequential(new TimedCommand(0.5) {
+		addSequential(new TimedCommand(0.3) {
 			
 			@Override
 			protected void initialize() {

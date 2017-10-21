@@ -9,14 +9,13 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	
-	/* COPILOT CONTROLS
-	 * left joystick thing -> move intake arm
-	 * right joystick thing -> move front arms
-	 * right trigger -> outtake
-	 * button A -> intake
+	/* ACTUAL COPILOT CONTROLS?
+	 * button A -> spinup
 	 * button B -> cancel shooter
-	 * button X -> spinup
-	 * button Y -> shoot
+	 * button X -> intake
+	 * button Y -> outtake
+	 * right bumper -> fire
+	 * joystick things should move arms (left = intake, right = front) but they don't
 	 */
 	
 	public static final Joystick driver = new Joystick(0);
@@ -24,9 +23,9 @@ public class OI {
 	
 	public static final JoystickButton buttonIntake = new JoystickButton(copilot, 3);
 	public static final JoystickButton buttonSpinup = new JoystickButton(copilot, 1);
-	public static final JoystickButton buttonFire = new JoystickButton(copilot, 4);
+	public static final JoystickButton buttonFire = new JoystickButton(copilot, 6);
 	public static final JoystickButton buttonCancelShooter = new JoystickButton(copilot, 2);
-	public static final JoystickButton buttonEject = new JoystickButton(copilot, 5);
+	public static final JoystickButton buttonEject = new JoystickButton(copilot, 4);
 	
 	private static final int rightAxisY = 5;
     private static final int leftAxisY = 1;
@@ -48,6 +47,10 @@ public class OI {
 	
 	public static double getDriveRightTrigger() {
 		return driver.getRawAxis(rightTrigger);
+	}
+	
+	public static double getIntakeArmAxis() {
+		return copilot.getRawAxis(leftAxisY);
 	}
 	
 	//// CREATING BUTTONS
