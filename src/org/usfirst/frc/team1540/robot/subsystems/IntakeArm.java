@@ -14,6 +14,8 @@ public class IntakeArm extends Subsystem {
 	
 	public IntakeArm() {
 		armTalon.changeControlMode(TalonControlMode.PercentVbus);
+		armTalon.reverseOutput(false);
+		armTalon.reverseSensor(false);
 	}
 	
 	@Override
@@ -22,7 +24,7 @@ public class IntakeArm extends Subsystem {
 	}
 	
 	public void set(double value) {
-		armTalon.set(value);
+		armTalon.set(-value);
 	}
 	
 	public double getCurrent() {

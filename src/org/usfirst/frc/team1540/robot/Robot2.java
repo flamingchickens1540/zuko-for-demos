@@ -40,19 +40,22 @@ public class Robot2 extends IterativeRobot {
 //        talonChooser.addObject(RobotMap.driveTalonLeftC + ": Drive Left Back", RobotMap.driveTalonLeftC);
 //        talonChooser.addObject(RobotMap.gearRoller + ": Gear Roller", RobotMap.gearRoller);
 //        talonChooser.addObject(RobotMap.gearWrist + ": Gear Wrist", RobotMap.gearWrist);
-        talonChooser.addObject("1", (Integer) 1);
-        talonChooser.addObject("2", (Integer) 2);
-        talonChooser.addObject("3", (Integer) 3);
-        talonChooser.addObject("4", (Integer) 4);
-        talonChooser.addObject("5", (Integer) 5);
-        talonChooser.addObject("6", (Integer) 6);
-        talonChooser.addObject("7", (Integer) 7);
-        talonChooser.addObject("8", (Integer) 8);
-        talonChooser.addObject("9", (Integer) 9);
-        talonChooser.addObject("10", (Integer) 10);
-        talonChooser.addObject("11", (Integer) 11);
-        talonChooser.addObject("12", (Integer) 12);
-        talonChooser.addObject("13", (Integer) 13);
+//        talonChooser.addObject("1", (Integer) 1);
+//        talonChooser.addObject("2", (Integer) 2);
+//        talonChooser.addObject("3", (Integer) 3);
+//        talonChooser.addObject("4", (Integer) 4);
+//        talonChooser.addObject("5", (Integer) 5);
+//        talonChooser.addObject("6", (Integer) 6);
+//        talonChooser.addObject("7", (Integer) 7);
+//        talonChooser.addObject("8", (Integer) 8);
+//        talonChooser.addObject("9", (Integer) 9);
+//        talonChooser.addObject("10", (Integer) 10);
+//        talonChooser.addObject("11", (Integer) 11);
+//        talonChooser.addObject("12", (Integer) 12);
+//        talonChooser.addObject("13", (Integer) 13);
+        for (int i = 1; i <= 13; i ++) {
+        	talonChooser.addObject(Integer.toString(i), (Integer) i);
+        }
         SmartDashboard.putData("Motor Chooser", talonChooser);
         
         OI.buttonSpinup.whenPressed(new Command() {

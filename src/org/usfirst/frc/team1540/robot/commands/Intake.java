@@ -4,6 +4,7 @@ import org.usfirst.frc.team1540.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
 public class Intake extends CommandGroup {
 	
@@ -37,22 +38,16 @@ public class Intake extends CommandGroup {
 			
 		});
 		
-		addParallel(new Command() {
+		addParallel(new TimedCommand(1) {
 			
 			@Override
 			protected void initialize() {
-				Robot.intakeArm.set(-Robot.tuning.getIntakeArmValue());
+				Robot.intakeArm.set(Robot.tuning.getIntakeArmValue());
 			}
 			
 			@Override
 			protected void end() {
 				Robot.intakeArm.set(0);
-			}
-			
-			@Override
-			protected boolean isFinished() {
-				return (System.currentTimeMillis() - startTime > 1000) && 
-						Robot.intakeArm.getCurrent() > Robot.tuning.getIntakeArmCurrentThreshold();
 			}
 			
 		});
