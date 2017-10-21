@@ -15,6 +15,7 @@ import org.usfirst.frc.team1540.robot.commands.SpinupFlywheel;
 import org.usfirst.frc.team1540.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1540.robot.subsystems.IntakeArm;
 import org.usfirst.frc.team1540.robot.subsystems.IntakeRollers;
+import org.usfirst.frc.team1540.robot.subsystems.PortcullisArms;
 import org.usfirst.frc.team1540.robot.subsystems.Shooter;
 
 /**
@@ -30,6 +31,7 @@ public class Robot extends IterativeRobot {
 	public static final Shooter shooter = new Shooter();
 	public static final IntakeRollers intakeRollers = new IntakeRollers();
 	public static final IntakeArm intakeArm = new IntakeArm();
+	public static final PortcullisArms portcullisArms = new PortcullisArms();
 //	public static OI oi;
 	public static Tuning tuning;
 
