@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1540.robot.subsystems;
 
 import org.usfirst.frc.team1540.robot.RobotMap;
+import org.usfirst.frc.team1540.robot.commands.JoystickPortcullisArms;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -20,14 +21,13 @@ public class PortcullisArms extends Subsystem {
 	}
 	
 	public void set(double value) {
-		leftArmTalon.set(value);
+		leftArmTalon.set(-value);
 		rightArmTalon.set(value);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
+		setDefaultCommand(new JoystickPortcullisArms());
 	}
 
 }
