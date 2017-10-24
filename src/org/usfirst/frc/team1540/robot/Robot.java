@@ -1,7 +1,10 @@
 
 package org.usfirst.frc.team1540.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -15,6 +18,7 @@ import org.usfirst.frc.team1540.robot.commands.SpinupFlywheel;
 import org.usfirst.frc.team1540.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1540.robot.subsystems.IntakeArm;
 import org.usfirst.frc.team1540.robot.subsystems.IntakeRollers;
+import org.usfirst.frc.team1540.robot.subsystems.PortcullisArms;
 import org.usfirst.frc.team1540.robot.subsystems.Shooter;
 
 /**
@@ -30,6 +34,7 @@ public class Robot extends IterativeRobot {
 	public static final Shooter shooter = new Shooter();
 	public static final IntakeRollers intakeRollers = new IntakeRollers();
 	public static final IntakeArm intakeArm = new IntakeArm();
+	public static final PortcullisArms portcullisArms = new PortcullisArms();
 //	public static OI oi;
 	public static Tuning tuning;
 
@@ -42,12 +47,17 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-//		oi = new OI();
+		//		oi = new OI();
 		tuning = new Tuning();
 		
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam0", 0);
+		camera.setResolution(640, 480);
+		MjpegServer mjpegServer0 = new MjpegServer("Front Server", 1181);
+		mjpegServer0.setSource(camera);
+
 		// chooser.addObject("My Auto", new MyAutoCommand());
-//		SmartDashboard.putData("Auto mode", chooser);
-		
+		//		SmartDashboard.putData("Auto mode", chooser);
+
 		OI.buttonIntake.whenPressed(new Intake());
 		OI.buttonEject.whileHeld(new Eject());
 		OI.buttonSpinup.whenPressed(new SpinupFlywheel());
