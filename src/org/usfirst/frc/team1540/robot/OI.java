@@ -30,24 +30,33 @@ public class OI {
 	
 	private static final int rightAxisY = 5;
     private static final int leftAxisY = 1;
+	private static final int leftAxisX = 0;
     
     private static final int rightTrigger = 3;
     private static final int leftTrigger = 2;
 	
-	public static double getDriveLeftAxis() {
-		return driver.getRawAxis(leftAxisY);
-	}
-	
-	public static double getDriveRightAxis() {
-        return driver.getRawAxis(rightAxisY);
+//	public static double getDriveLeftAxis() {
+//		return driver.getRawAxis(leftAxisY);
+//	}
+//	
+//	public static double getDriveRightAxis() {
+//        return driver.getRawAxis(rightAxisY);
+//    }
+    
+    public static double getDriveAccAxis() {
+    	return RobotUtil.deadzone(driver.getRawAxis(rightAxisY), 0.1);
+    }
+    
+    public static double getDriveTurnAxis() {
+    	return RobotUtil.deadzone(driver.getRawAxis(leftAxisX), 0.1);
     }
 	
 	public static double getDriveLeftTrigger() {
-		return driver.getRawAxis(leftTrigger);
+		return RobotUtil.deadzone(driver.getRawAxis(leftTrigger), 0.1);
 	}
 	
 	public static double getDriveRightTrigger() {
-		return driver.getRawAxis(rightTrigger);
+		return RobotUtil.deadzone(driver.getRawAxis(rightTrigger), 0.1);
 	}
 	
 	public static double getIntakeArmAxis() {
