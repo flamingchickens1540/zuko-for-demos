@@ -47,4 +47,12 @@ public class DriveTrain extends Subsystem {
 		driveRightTalon.set(RobotUtil.deadzone(rightValue, deadzone));
 	}
 	
+	public void setLeft(double value) {
+		driveLeftTalon.set(-value);
+	}
+	
+	public void setRight(double value) {
+		driveRightTalon.set(value);
+	}
+	
 }

@@ -13,8 +13,8 @@ public class JoystickDrive extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.driveTrain.tankDrive(OI.getDriveLeftAxis() + OI.getDriveLeftTrigger() - OI.getDriveRightTrigger(), 
-				OI.getDriveRightAxis() + OI.getDriveLeftTrigger() - OI.getDriveRightTrigger());
+		Robot.driveTrain.setLeft(OI.getDriveAccAxis() - OI.getDriveTurnAxis());
+		Robot.driveTrain.setRight(OI.getDriveAccAxis() + OI.getDriveTurnAxis());
 	}
 	
 	@Override
