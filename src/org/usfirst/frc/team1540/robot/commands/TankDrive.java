@@ -5,16 +5,16 @@ import org.usfirst.frc.team1540.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class JoystickDrive extends Command {
+public class TankDrive extends Command {
 	
-	public JoystickDrive() {
+	public TankDrive() {
         requires(Robot.driveTrain);
     }
 	
 	@Override
 	protected void execute() {
-		Robot.driveTrain.setLeft(OI.getDriveAccAxis() - OI.getDriveTurnAxis());
-		Robot.driveTrain.setRight(OI.getDriveAccAxis() + OI.getDriveTurnAxis());
+		Robot.driveTrain.tankDrive(OI.getDriveLeftAxis() + OI.getDriveLeftTrigger() - OI.getDriveRightTrigger(),
+				OI.getDriveRightAxis() + OI.getDriveLeftTrigger() - OI.getDriveRightTrigger());
 	}
 	
 	@Override

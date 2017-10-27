@@ -35,13 +35,13 @@ public class OI {
     private static final int rightTrigger = 3;
     private static final int leftTrigger = 2;
 	
-//	public static double getDriveLeftAxis() {
-//		return driver.getRawAxis(leftAxisY);
-//	}
-//	
-//	public static double getDriveRightAxis() {
-//        return driver.getRawAxis(rightAxisY);
-//    }
+	public static double getDriveLeftAxis() {
+		return RobotUtil.deadzone(driver.getRawAxis(leftAxisY), 0.1);
+	}
+	
+	public static double getDriveRightAxis() {
+        return RobotUtil.deadzone(driver.getRawAxis(rightAxisY), 0.1);
+    }
     
     public static double getDriveAccAxis() {
     	return RobotUtil.deadzone(driver.getRawAxis(rightAxisY), 0.1);
