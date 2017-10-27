@@ -13,6 +13,7 @@ public class CancelShooter extends InstantCommand {
 	@Override
 	protected void initialize() {
 		Robot.shooter.stop();
+		System.out.println("hi");
 	}
 	
 }

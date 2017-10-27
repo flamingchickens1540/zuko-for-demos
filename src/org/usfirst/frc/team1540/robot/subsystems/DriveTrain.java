@@ -1,8 +1,9 @@
 package org.usfirst.frc.team1540.robot.subsystems;
 
+import org.usfirst.frc.team1540.robot.Robot;
 import org.usfirst.frc.team1540.robot.RobotMap;
 import org.usfirst.frc.team1540.robot.RobotUtil;
-import org.usfirst.frc.team1540.robot.commands.JoystickDrive;
+import org.usfirst.frc.team1540.robot.commands.TankDrive;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
@@ -38,7 +39,11 @@ public class DriveTrain extends Subsystem {
     
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new JoystickDrive());
+		actuallyInitDefaultCommand();
+	}
+	
+	public void actuallyInitDefaultCommand() {
+		setDefaultCommand(Robot.driveModeChooser.getSelected());
 	}
 	
 	public void tankDrive(double leftValue, double rightValue) {
