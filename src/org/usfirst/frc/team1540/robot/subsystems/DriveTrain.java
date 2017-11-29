@@ -19,6 +19,9 @@ public class DriveTrain extends Subsystem {
 	private final CANTalon driveRightTalon = new CANTalon(RobotMap.driveRightA);
     private final CANTalon driveRightBTalon = new CANTalon(RobotMap.driveRightB);
     private final CANTalon driveRightCTalon = new CANTalon(RobotMap.driveRightC);
+    
+    public static final double deadzone = 0.1;
+    public static final double exponent = 2;
 	
     public DriveTrain() {
     	driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);
@@ -46,11 +49,12 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(Robot.driveModeChooser.getSelected());
 	}
 	
-	public void tankDrive(double leftValue, double rightValue) {
-		double deadzone = 0.1;
-		driveLeftTalon.set(-RobotUtil.deadzone(leftValue, deadzone));
-		driveRightTalon.set(RobotUtil.deadzone(rightValue, deadzone));
-	}
+//	public void tankDrive(double leftValue, double rightValue) {
+//		double deadzone = 0.1;
+//		double exponent = 2;
+//		driveLeftTalon.set(-RobotUtil.exponentDeadzone(leftValue, deadzone, exponent));
+//		driveRightTalon.set(RobotUtil.exponentDeadzone(rightValue, deadzone, exponent));
+//	}
 	
 	public void setLeft(double value) {
 		driveLeftTalon.set(-value);

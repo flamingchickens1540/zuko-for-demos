@@ -23,36 +23,6 @@ public class Robot2 extends IterativeRobot {
     @Override
     public void robotInit() {
         talonChooser = new SendableChooser<Integer>();
-//        talonChooser.addObject(RobotMap.climberTop + ": Climber Top", RobotMap.climberTop);
-//        talonChooser.addObject(RobotMap.climberBottom + ": Climber Bottom", RobotMap.climberBottom);
-//        talonChooser.addObject(RobotMap.climberNew + ": Climber New", RobotMap.climberNew);
-//        talonChooser.addObject(RobotMap.intakeRollers + ": Intake", RobotMap.intakeRollers);
-//        talonChooser.addObject(RobotMap.feederFunnelingRollerTop + ": Feeder Top", RobotMap.feederFunnelingRollerTop);
-//        talonChooser.addObject(RobotMap.feederFunnelingRollerRight + ": Feeder Right", RobotMap.feederFunnelingRollerRight);
-//        talonChooser.addObject(RobotMap.feederFunnelingRollerLeft + ": Feeder Left", RobotMap.feederFunnelingRollerLeft);
-//        talonChooser.addObject(RobotMap.feederBelt + ": Feeder Belt", RobotMap.feederBelt);
-//        talonChooser.addObject(RobotMap.shooterLeftFlywheel + ": Shooter Flywheel", RobotMap.shooterLeftFlywheel);
-//        talonChooser.addObject(RobotMap.driveTalonRightA + ": Drive Right Front", RobotMap.driveTalonRightA);
-//        talonChooser.addObject(RobotMap.driveTalonRightB + ": Drive Right Middle", RobotMap.driveTalonRightB);
-//        talonChooser.addObject(RobotMap.driveTalonRightC + ": Drive Right Back", RobotMap.driveTalonRightC);
-//        talonChooser.addObject(RobotMap.driveTalonLeftA + ": Drive Left Front", RobotMap.driveTalonLeftA);
-//        talonChooser.addObject(RobotMap.driveTalonLeftB + ": Drive Left Middle", RobotMap.driveTalonLeftB);
-//        talonChooser.addObject(RobotMap.driveTalonLeftC + ": Drive Left Back", RobotMap.driveTalonLeftC);
-//        talonChooser.addObject(RobotMap.gearRoller + ": Gear Roller", RobotMap.gearRoller);
-//        talonChooser.addObject(RobotMap.gearWrist + ": Gear Wrist", RobotMap.gearWrist);
-//        talonChooser.addObject("1", (Integer) 1);
-//        talonChooser.addObject("2", (Integer) 2);
-//        talonChooser.addObject("3", (Integer) 3);
-//        talonChooser.addObject("4", (Integer) 4);
-//        talonChooser.addObject("5", (Integer) 5);
-//        talonChooser.addObject("6", (Integer) 6);
-//        talonChooser.addObject("7", (Integer) 7);
-//        talonChooser.addObject("8", (Integer) 8);
-//        talonChooser.addObject("9", (Integer) 9);
-//        talonChooser.addObject("10", (Integer) 10);
-//        talonChooser.addObject("11", (Integer) 11);
-//        talonChooser.addObject("12", (Integer) 12);
-//        talonChooser.addObject("13", (Integer) 13);
         for (int i = 1; i <= 13; i ++) {
         	talonChooser.addObject(Integer.toString(i), (Integer) i);
         }

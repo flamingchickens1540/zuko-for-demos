@@ -17,6 +17,7 @@ import org.usfirst.frc.team1540.robot.commands.CancelShooter;
 import org.usfirst.frc.team1540.robot.commands.Eject;
 import org.usfirst.frc.team1540.robot.commands.FireShooter;
 import org.usfirst.frc.team1540.robot.commands.Intake;
+import org.usfirst.frc.team1540.robot.commands.LittleKidMode;
 import org.usfirst.frc.team1540.robot.commands.SpinupFlywheel;
 import org.usfirst.frc.team1540.robot.commands.TankDrive;
 import org.usfirst.frc.team1540.robot.subsystems.DriveTrain;
@@ -24,6 +25,9 @@ import org.usfirst.frc.team1540.robot.subsystems.IntakeArm;
 import org.usfirst.frc.team1540.robot.subsystems.IntakeRollers;
 import org.usfirst.frc.team1540.robot.subsystems.PortcullisArms;
 import org.usfirst.frc.team1540.robot.subsystems.Shooter;
+
+import com.ctre.CANTalon;
+import com.ctre.CANTalon.TalonControlMode;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -42,6 +46,9 @@ public class Robot extends IterativeRobot {
 	public static Tuning tuning;
 	
 	public static final SendableChooser<Command> driveModeChooser = new SendableChooser<Command>();
+	
+//	public static final SendableChooser<CANTalon> talonChooser = new SendableChooser<CANTalon>();
+//	public static CANTalon[] allTalons = new CANTalon[RobotMap.numTalons];
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -51,10 +58,10 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		tuning = new Tuning();
 		
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("ze camera", 0);
-		camera.setResolution(640, 480);
-		MjpegServer mjpegServer0 = new MjpegServer("Front Server", 1181);
-		mjpegServer0.setSource(camera);
+//		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("ze camera", 0);
+//		camera.setResolution(640, 480);
+//		MjpegServer mjpegServer0 = new MjpegServer("Front Server", 1181);
+//		mjpegServer0.setSource(camera);
 
 		OI.buttonIntake.whenPressed(new Intake());
 		OI.buttonEject.whileHeld(new Eject());
@@ -64,6 +71,7 @@ public class Robot extends IterativeRobot {
 		
 		driveModeChooser.addDefault("Tank Drive", new TankDrive());
 		driveModeChooser.addObject("Arcade Drive", new ArcadeDrive());
+		driveModeChooser.addObject("Kid Mode", new LittleKidMode());
 		SmartDashboard.putData("Drive Mode", driveModeChooser);
 	}
 
@@ -89,6 +97,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		Scheduler.getInstance().removeAll(); // SEE IF THIS ACTUALLY DISABLES KID MODE BUTTONS IN OTHER MODES
 		driveTrain.actuallyInitDefaultCommand();
 	}
 
@@ -108,9 +117,25 @@ public class Robot extends IterativeRobot {
 		OI.copilot.setRumble(RumbleType.kRightRumble, 
 				shooter.upToSpeed(Robot.tuning.getFlywheelTargetSpeed()) ? 0.5 : 0);
 	}
+	
+	@Override
+	public void testInit() {
+//		System.out.println("starting test mode");
+//		for (int i = 1; i <= 13; i ++) {
+//        	talonChooser.addObject(Integer.toString(i), (Integer) i);
+//        }
+	}
 
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
+//		LiveWindow.run();
+//		CANTalon talonToRun = new CANTalon(talonChooser.getSelected());
+//		talonToRun.changeControlMode(TalonControlMode.PercentVbus);
+//		if (OI.buttonSpinup.get()) {
+//			talonToRun.set(-0.5);
+//		} else {
+//			talonToRun.set(0);
+//		}
 	}
+		
 }

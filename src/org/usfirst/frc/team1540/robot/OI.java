@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	
-	/* ACTUAL COPILOT CONTROLS
+	/* COPILOT CONTROLS
 	 * button A -> spinup
 	 * button B -> cancel shooter
 	 * button X -> intake
@@ -21,6 +21,7 @@ public class OI {
 	
 	public static final Joystick driver = new Joystick(0);
 	public static final Joystick copilot = new Joystick(1);
+	public static final Joystick littleKid = new Joystick(2);
 	
 	public static final JoystickButton buttonIntake = new JoystickButton(copilot, 3);
 	public static final JoystickButton buttonSpinup = new JoystickButton(copilot, 1);
@@ -28,35 +29,52 @@ public class OI {
 	public static final JoystickButton buttonCancelShooter = new JoystickButton(copilot, 2);
 	public static final JoystickButton buttonEject = new JoystickButton(copilot, 4);
 	
+	public static final JoystickButton buttonKidFire = new JoystickButton(littleKid, 1);
+	public static final JoystickButton buttonKidSpinup = new JoystickButton(littleKid, 2);
+	
+	public static final JoystickButton buttonDisableKid = new JoystickButton(copilot, 8);
+	public static final JoystickButton buttonEnableKid = new JoystickButton(copilot, 5);
+	
 	private static final int rightAxisY = 5;
     private static final int leftAxisY = 1;
 	private static final int leftAxisX = 0;
     
     private static final int rightTrigger = 3;
     private static final int leftTrigger = 2;
+    
+    private static final int singleX = 0;
+    private static final int singleY = 1;
 	
 	public static double getDriveLeftAxis() {
-		return RobotUtil.deadzone(driver.getRawAxis(leftAxisY), 0.1);
+		return driver.getRawAxis(leftAxisY);
 	}
 	
 	public static double getDriveRightAxis() {
-        return RobotUtil.deadzone(driver.getRawAxis(rightAxisY), 0.1);
+        return driver.getRawAxis(rightAxisY);
     }
     
     public static double getDriveAccAxis() {
-    	return RobotUtil.deadzone(driver.getRawAxis(rightAxisY), 0.1);
+    	return driver.getRawAxis(rightAxisY);
     }
     
     public static double getDriveTurnAxis() {
-    	return RobotUtil.deadzone(driver.getRawAxis(leftAxisX), 0.1);
+    	return driver.getRawAxis(leftAxisX);
     }
 	
 	public static double getDriveLeftTrigger() {
-		return RobotUtil.deadzone(driver.getRawAxis(leftTrigger), 0.1);
+		return driver.getRawAxis(leftTrigger);
 	}
 	
 	public static double getDriveRightTrigger() {
-		return RobotUtil.deadzone(driver.getRawAxis(rightTrigger), 0.1);
+		return driver.getRawAxis(rightTrigger);
+	}
+	
+	public static double getKidXAxis() {
+		return littleKid.getRawAxis(singleX);
+	}
+	
+	public static double getKidYAxis() {
+		return littleKid.getRawAxis(singleY);
 	}
 	
 	public static double getIntakeArmAxis() {
@@ -67,31 +85,4 @@ public class OI {
 		return copilot.getRawAxis(rightAxisY);
 	}
 	
-	//// CREATING BUTTONS
-	// One type of button is a joystick button which is any button on a
-	//// joystick.
-	// You create one by telling it which joystick it's on and which button
-	// number it is.
-	// Joystick stick = new Joystick(port);
-	// Button button = new JoystickButton(stick, buttonNumber);
-
-	// There are a few additional built in buttons you can use. Additionally,
-	// by subclassing Button you can create custom triggers and bind those to
-	// commands the same as any other Button.
-
-	//// TRIGGERING COMMANDS WITH BUTTONS
-	// Once you have a button, it's trivial to bind it to a button in one of
-	// three ways:
-
-	// Start the command when the button is pressed and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	// button.whenPressed(new ExampleCommand());
-
-	// Run the command while the button is being held down and interrupt it once
-	// the button is released.
-	// button.whileHeld(new ExampleCommand());
-
-	// Start the command when the button is released and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	// button.whenReleased(new ExampleCommand());
 }

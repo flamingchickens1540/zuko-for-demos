@@ -8,6 +8,8 @@ package org.usfirst.frc.team1540.robot;
  */
 public class RobotMap {
 	
+	public static int numTalons = 13;
+	
 	public static int driveLeftA = 1;
 	public static int driveLeftB = 2;
 	public static int driveLeftC = 3;

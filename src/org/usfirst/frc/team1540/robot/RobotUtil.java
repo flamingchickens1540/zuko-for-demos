@@ -9,13 +9,13 @@ public class RobotUtil {
         return input;
     }
     
-    public static double betterDeadzone(double input, double range, double exponent) {
-        if (Math.abs(input) > range) {
+    public static double exponentDeadzone(double input, double deadzone, double exponent) {
+        if (Math.abs(input) > deadzone) {
             if (input > 0) {
-                return Math.pow((input - range) / (1 - range), exponent);
+                return Math.pow((input - deadzone) / (1 - deadzone), exponent);
             }
             else {
-                return -Math.pow((-input - range) / (1 - range), exponent);
+                return -Math.pow((-input - deadzone) / (1 - deadzone), exponent);
             }
         }
         else {
