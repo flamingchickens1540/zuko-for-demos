@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1540.robot.subsystems;
 
+import org.team1540.base.power.PowerManageable;
 import org.usfirst.frc.team1540.robot.Robot;
 import org.usfirst.frc.team1540.robot.RobotMap;
 
@@ -9,8 +10,11 @@ import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Shooter extends Subsystem {
-	
+public class Shooter extends Subsystem implements PowerManageable {
+
+	private double priority = 10;
+	private final Object motorLock = new Object();
+
 	private final CANTalon flywheelLeftTalon = new CANTalon(RobotMap.flywheelL);
 	private final CANTalon flywheelRightTalon = new CANTalon(RobotMap.flywheelR);
 	
@@ -64,12 +68,42 @@ public class Shooter extends Subsystem {
 		return flywheelLeftTalon.getEncVelocity();
 	}
 	
-	public double getCurrent() {
-		return flywheelLeftTalon.getOutputCurrent();
-	}
-	
 	public boolean upToSpeed(double rpm) {
 		return Math.abs(rpm - getSpeed()) < Robot.tuning.getFlywheelSpeedMarginOfError();
+	}
+
+	@Override
+	public double getPriority() {
+		return priority;
+	}
+
+	@Override
+	public void setPriority(double priority) {
+		this.priority = priority;
+	}
+
+	@Override
+	public double getCurrent() {
+			return flywheelLeftTalon.getOutputCurrent() + flywheelRightTalon.getOutputCurrent();
+	}
+
+	@Override
+	public void limitPower(double limit) {
+		synchronized (motorLock) {
+			flywheelLeftTalon.EnableCurrentLimit(true);
+			flywheelRightTalon.EnableCurrentLimit(true);
+
+			flywheelLeftTalon.setCurrentLimit(Math.toIntExact(Math.round(limit / 2)));
+			flywheelRightTalon.setCurrentLimit(Math.toIntExact(Math.round(limit / 2)));
+		}
+	}
+
+	@Override
+	public void stopLimitingPower() {
+		synchronized (motorLock) {
+			flywheelLeftTalon.EnableCurrentLimit(false);
+			flywheelRightTalon.EnableCurrentLimit(false);
+		}
 	}
 
 }
