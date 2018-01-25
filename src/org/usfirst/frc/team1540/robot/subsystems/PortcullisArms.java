@@ -1,17 +1,16 @@
 package org.usfirst.frc.team1540.robot.subsystems;
 
+import org.team1540.base.wrappers.ChickenTalon;
+import org.team1540.base.wrappers.ChickenTalon.TalonControlMode;
 import org.usfirst.frc.team1540.robot.RobotMap;
 import org.usfirst.frc.team1540.robot.commands.JoystickPortcullisArms;
-
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class PortcullisArms extends Subsystem {
 	
-	CANTalon leftArmTalon = new CANTalon(RobotMap.portcullisL);
-	CANTalon rightArmTalon = new CANTalon(RobotMap.portcullisR);
+	ChickenTalon leftArmTalon = new ChickenTalon(RobotMap.portcullisL);
+	ChickenTalon rightArmTalon = new ChickenTalon(RobotMap.portcullisR);
 	
 	public PortcullisArms() {
 		leftArmTalon.changeControlMode(TalonControlMode.PercentVbus);

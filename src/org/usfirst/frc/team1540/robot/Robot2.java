@@ -1,17 +1,16 @@
 package org.usfirst.frc.team1540.robot;
 
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.TalonControlMode;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team1540.base.wrappers.ChickenTalon;
+import org.team1540.base.wrappers.ChickenTalon.TalonControlMode;
 
 public class Robot2 extends IterativeRobot {
 
-    private CANTalon[] talons = new CANTalon[18];
+    private ChickenTalon[] talons = new ChickenTalon[18];
     
     SendableChooser<Integer> talonChooser;
     int talon;
@@ -64,7 +63,7 @@ public class Robot2 extends IterativeRobot {
                 System.out.println(talonChooser.getSelected());
                 
                 if (talons[talonChooser.getSelected()] == null){
-                    talons[talonChooser.getSelected()] = new CANTalon(talonChooser.getSelected());
+                    talons[talonChooser.getSelected()] = new ChickenTalon(talonChooser.getSelected());
                 }
                 talons[talonChooser.getSelected()].changeControlMode(TalonControlMode.PercentVbus);
                 talons[talonChooser.getSelected()].set(-0.5);

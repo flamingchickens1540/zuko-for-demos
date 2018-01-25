@@ -1,21 +1,20 @@
 package org.usfirst.frc.team1540.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import org.team1540.base.wrappers.ChickenTalon;
+import org.team1540.base.wrappers.ChickenTalon.TalonControlMode;
 import org.usfirst.frc.team1540.robot.Robot;
 import org.usfirst.frc.team1540.robot.RobotMap;
-
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
-import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
 	
-	private final CANTalon flywheelLeftTalon = new CANTalon(RobotMap.flywheelL);
-	private final CANTalon flywheelRightTalon = new CANTalon(RobotMap.flywheelR);
+	private final ChickenTalon flywheelLeftTalon = new ChickenTalon(RobotMap.flywheelL);
+	private final ChickenTalon flywheelRightTalon = new ChickenTalon(RobotMap.flywheelR);
 	
 	public Shooter() {
-		flywheelLeftTalon.setFeedbackDevice(FeedbackDevice.EncRising);
+		flywheelLeftTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         flywheelLeftTalon.reverseSensor(false);
         flywheelLeftTalon.reverseOutput(false);
         flywheelLeftTalon.configNominalOutputVoltage(+0f, -0f);
