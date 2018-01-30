@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1540.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Trajectory.Segment;
@@ -11,6 +12,9 @@ public class MotionProfile extends Command {
 
   private int slotId = 0;
   private Map<ChickenController, Properties> motionProfiles;
+  private Timer timer = new Timer();
+  private double lastTime;
+  private boolean isFinished = false;
 
   public MotionProfile(Map<ChickenController, Properties> motionProfiles) {
     this.motionProfiles = motionProfiles;
@@ -45,14 +49,20 @@ public class MotionProfile extends Command {
       currentController.configClosedloopRamp(motionProfiles.get(currentController)
           .getSecondsFromNeutralToFull());
     }
+    timer.start();
+    lastTime = timer.get();
+    isFinished = false;
   }
 
   protected void execute() {
+
     for (ChickenController currentController : motionProfiles.keySet()) {
       // Each controller's setpoint is calculated at a slightly different time, but this doesn't
       // matter, since the motion profile is "continuous."
-
+      currentController.set(getVelocitySetpoint(currentController, timer.get(), lastTime));
     }
+
+    lastTime = timer.get();
   }
 
   private double getVelocitySetpoint(ChickenController currentController, double currentTime,
@@ -77,8 +87,7 @@ public class MotionProfile extends Command {
 
     // Linear search is fine since we don't expect to be going far and the overhead of a different
     // data structure or search algorithm probably isn't worth it.
-    boolean found = false;
-    for (int d = 0; !found; d++) {
+    for (int d = 0; ; d++) {
 
       Segment loSegment = thisTrajectory.segments[startIndex - d];
       Segment loSegmentn = thisTrajectory.segments[startIndex - d + 1];
@@ -94,20 +103,19 @@ public class MotionProfile extends Command {
       if (isBetween(position, loSegment.position, loSegmentn.position)
           && (startIndex - d) * dt > lastTime) {
         // Target the low segment; make sure it's actually ahead of the last time.
-        return linearInterplation(position, loSegment.position, loSegment.velocity,
+        return linearInterpolation(position, loSegment.position, loSegment.velocity,
             loSegmentn.position, loSegmentn.velocity);
       } else if (isBetween(position, hiSegmentn.position, hiSegment.position)) {
         // Target the high segment
-        return linearInterplation(position, hiSegmentn.position, hiSegmentn.velocity,
+        return linearInterpolation(position, hiSegmentn.position, hiSegmentn.velocity,
             hiSegment.position, hiSegment.velocity);
       } else if (startIndex + d > thisTrajectory.length() - 1
           || currentTime > thisTrajectory.length() * dt) {
+        isFinished = true;
         // If we've overrun the end, set the velocity to be the end velocity.
         return thisTrajectory.segments[thisTrajectory.length() - 1].velocity;
       }
     }
-    // TODO default?
-    return 0;
   }
 
   /**
@@ -122,15 +130,14 @@ public class MotionProfile extends Command {
     return (x >= x1 && x <= x2 || x >= x2 && x <= x1);
   }
 
-  private double linearInterplation(double x, double lowX, double lowY, double highX,
+  private double linearInterpolation(double x, double lowX, double lowY, double highX,
       double highY) {
     return (x - lowX) * (highY - lowY) / (highX - lowX) + lowY;
   }
 
   @Override
   protected boolean isFinished() {
-    // TODO
-    return false;
+    return isFinished;
   }
 
   public class Properties {
