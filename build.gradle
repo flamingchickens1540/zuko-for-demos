@@ -32,6 +32,7 @@ repositories {
 dependencies {
     compile wpilib()
     compile ctre()
+    compile pathfinder()
     compile 'org.team1540:rooster:master-SNAPSHOT'
 }
 
