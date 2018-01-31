@@ -9,6 +9,9 @@ public class Properties {
   private double d = 0.0;
   private double f = 0.5;
   private int iZone = 1000;
+  private double encoderTicksPerRev = 1023;
+
+  private double wheelDiameter = 0.1;
   private double secondsFromNeutralToFull = 0;
   private Trajectory trajectory;
 
@@ -18,10 +21,12 @@ public class Properties {
     this.trajectory = trajectory;
   }
 
-  public Properties(double p, double i, double d, Trajectory trajectory) {
+  public Properties(double p, double i, double d, double encoderTicksPerRev,
+      Trajectory trajectory) {
     this.p = p;
     this.i = i;
     this.d = d;
+    this.encoderTicksPerRev = encoderTicksPerRev;
     this.trajectory = trajectory;
   }
 
@@ -63,6 +68,26 @@ public class Properties {
 
   public void setiZone(int iZone) {
     this.iZone = iZone;
+  }
+
+  public double getEncoderTicksPerRev() {
+    return encoderTicksPerRev;
+  }
+
+  public void setEncoderTicksPerRev(double encoderTicksPerRev) {
+    this.encoderTicksPerRev = encoderTicksPerRev;
+  }
+
+  public double getWheelDiameter() {
+    return wheelDiameter;
+  }
+
+  public void setWheelDiameter(double wheelDiameter) {
+    this.wheelDiameter = wheelDiameter;
+  }
+
+  public double encoderTickRatio() {
+    return (1 / encoderTicksPerRev) * (wheelDiameter * Math.PI);
   }
 
   public Trajectory getTrajectory() {

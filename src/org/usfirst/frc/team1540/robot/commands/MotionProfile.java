@@ -60,14 +60,15 @@ public class MotionProfile extends Command {
     for (ChickenController currentController : motionProfiles.keySet()) {
       // Each controller's setpoint is calculated at a slightly different time, but this doesn't
       // matter, since the motion profile is "continuous."
-      currentController.set(getVelocitySetpoint(currentController, timer.get(), lastTime));
+      currentController.set(getVelocitySetpoint(currentController,
+          motionProfiles.get(currentController).encoderTickRatio(), timer.get(), lastTime));
     }
 
     lastTime = timer.get();
   }
 
-  private double getVelocitySetpoint(ChickenController currentController, double currentTime,
-      double lastTime) {
+  private double getVelocitySetpoint(ChickenController currentController, double encoderTickRatio,
+      double currentTime, double lastTime) {
 
     /*
       Whoa! This is weird. Although everything is ordered base on time, that's prone to getting off
@@ -106,7 +107,7 @@ public class MotionProfile extends Command {
           : thisTrajectory.segments[thisTrajectory.length()]);
 
       // Grab the position, otherwise we might have issues where neither is true
-      double position = currentController.getQuadraturePosition();
+      double position = currentController.getQuadraturePosition() * encoderTickRatio;
 
       // If the target position is between the last point's and this point's position
       // Take the one that's the least far ahead in time, then linearly interpolate between the two
