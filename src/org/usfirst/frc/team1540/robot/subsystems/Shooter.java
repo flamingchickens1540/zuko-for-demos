@@ -1,12 +1,11 @@
 package org.usfirst.frc.team1540.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team1540.base.wrappers.ChickenTalon;
 import org.team1540.base.wrappers.ChickenTalon.TalonControlMode;
 import org.usfirst.frc.team1540.robot.Robot;
 import org.usfirst.frc.team1540.robot.RobotMap;
-
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem {
 	
@@ -20,7 +19,8 @@ public class Shooter extends Subsystem {
         flywheelLeftTalon.configNominalOutputVoltage(+0f, -0f);
         flywheelLeftTalon.configPeakOutputVoltage(+12f, -12f);
         flywheelLeftTalon.configEncoderCodesPerRev(1024);
-        flywheelLeftTalon.changeControlMode(TalonControlMode.Speed);
+//        flywheelLeftTalon.changeControlMode(TalonControlMode.Speed);
+    flywheelLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
         flywheelRightTalon.reverseSensor(false);
         flywheelRightTalon.reverseOutput(false);
         flywheelRightTalon.changeControlMode(TalonControlMode.Follower);
@@ -33,6 +33,7 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void set(double value) {
+//		flywheelLeftTalon.changeControlMode(TalonControlMode.Speed);
 		flywheelLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
 		flywheelRightTalon.changeControlMode(TalonControlMode.Follower);
         flywheelRightTalon.set(flywheelLeftTalon.getDeviceID());
@@ -48,14 +49,16 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void setSpeed(double rpm) {
-		flywheelLeftTalon.changeControlMode(TalonControlMode.Speed);
+//		flywheelLeftTalon.changeControlMode(TalonControlMode.Speed);
+    flywheelLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
 		flywheelRightTalon.changeControlMode(TalonControlMode.Follower);
         flywheelRightTalon.set(flywheelLeftTalon.getDeviceID());
 		flywheelLeftTalon.setSetpoint(rpm);
 	}
 	
 	public double getSetpoint() {
-		return flywheelLeftTalon.getSetpoint();
+//		return flywheelLeftTalon.getSetpoint();
+    return 0;
 	}
 	
 	public double getSpeed() {
