@@ -1,22 +1,25 @@
 
 package org.usfirst.frc.team1540.robot;
 
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import jaci.pathfinder.Trajectory;
+import java.util.HashMap;
+import org.team1540.base.wrappers.ChickenController;
 import org.usfirst.frc.team1540.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team1540.robot.commands.CancelShooter;
 import org.usfirst.frc.team1540.robot.commands.Eject;
 import org.usfirst.frc.team1540.robot.commands.FireShooter;
 import org.usfirst.frc.team1540.robot.commands.Intake;
+import org.usfirst.frc.team1540.robot.commands.MotionProfile;
 import org.usfirst.frc.team1540.robot.commands.SpinupFlywheel;
 import org.usfirst.frc.team1540.robot.commands.TankDrive;
 import org.usfirst.frc.team1540.robot.subsystems.DriveTrain;
@@ -79,7 +82,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		
+		Trajectory[] trajectories = PathfinderPlayground.getModifiedTrajectory();
+		HashMap<ChickenController, Properties> mps = new HashMap<>();
+		mps.put(Robot.driveTrain.getDriveLeftTalon(), new Properties(trajectories[0]));
+		mps.put(Robot.driveTrain.getDriveRightTalon(), new Properties(trajectories[1]));
+		Scheduler.getInstance().add(new MotionProfile(mps));
 	}
 
 	@Override
@@ -96,16 +103,16 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		
 		Scheduler.getInstance().run();
-		
+
 		SmartDashboard.putNumber("Flywheel Current", shooter.getCurrent());
 		SmartDashboard.putNumber("Flywheel Setpoint", shooter.getSetpoint());
 		SmartDashboard.putNumber("Flywheel Speed", shooter.getSpeed());
 		SmartDashboard.putBoolean("Flywheel Up To Speed", shooter.upToSpeed(tuning.getFlywheelTargetSpeed()));
 		SmartDashboard.putNumber("Intake Arm Current", intakeArm.getCurrent());
-		
-		OI.driver.setRumble(RumbleType.kRightRumble, 
+
+		OI.driver.setRumble(RumbleType.kRightRumble,
 				shooter.upToSpeed(Robot.tuning.getFlywheelTargetSpeed()) ? 0.5 : 0);
-		OI.copilot.setRumble(RumbleType.kRightRumble, 
+		OI.copilot.setRumble(RumbleType.kRightRumble,
 				shooter.upToSpeed(Robot.tuning.getFlywheelTargetSpeed()) ? 0.5 : 0);
 	}
 

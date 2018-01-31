@@ -1,12 +1,11 @@
 package org.usfirst.frc.team1540.robot.subsystems;
 
+import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team1540.base.wrappers.ChickenTalon;
 import org.team1540.base.wrappers.ChickenTalon.TalonControlMode;
 import org.usfirst.frc.team1540.robot.Robot;
 import org.usfirst.frc.team1540.robot.RobotMap;
 import org.usfirst.frc.team1540.robot.RobotUtil;
-
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
 	
@@ -57,5 +56,12 @@ public class DriveTrain extends Subsystem {
 	public void setRight(double value) {
 		driveRightTalon.set(value);
 	}
-	
+
+	public ChickenTalon getDriveLeftTalon() {
+		return driveLeftTalon;
+	}
+
+	public ChickenTalon getDriveRightTalon() {
+		return driveRightTalon;
+	}
 }
