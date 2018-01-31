@@ -90,13 +90,20 @@ public class MotionProfile extends Command {
     // data structure or search algorithm probably isn't worth it.
     for (int d = 0; ; d++) {
 
+      // Set it either to the correct place or first item
       Segment loSegment = (startIndex - d >= 0 ? thisTrajectory.segments[startIndex - d]
           : thisTrajectory.segments[0]);
+      // Set it either to the correct place or first item
       Segment loSegmentn = (startIndex - d + 1 >= 0 ? thisTrajectory.segments[startIndex - d + 1]
           : thisTrajectory.segments[0]);
-      Segment hiSegment = thisTrajectory.segments[startIndex + d];
-      Segment hiSegmentn = (startIndex + d - 1 >= 0 ? thisTrajectory.segments[startIndex + d - 1]
-          : hiSegment);
+      // Set it either to the correct place or last item
+      Segment hiSegment = (startIndex + d <= thisTrajectory.length() ?
+          thisTrajectory.segments[startIndex + d] : thisTrajectory.segments[thisTrajectory.length()
+          - 1]);
+      // Set it either to the correct place, first place, or last item
+      Segment hiSegmentn = (startIndex + d <= thisTrajectory.length() ?
+          (startIndex + d - 1 >= 0 ? thisTrajectory.segments[startIndex + d - 1] : hiSegment)
+          : thisTrajectory.segments[thisTrajectory.length()]);
 
       // Grab the position, otherwise we might have issues where neither is true
       double position = currentController.getQuadraturePosition();
