@@ -98,13 +98,13 @@ public class MotionProfile extends Command {
       Segment loSegmentn = (startIndex - d + 1 >= 0 ? thisTrajectory.segments[startIndex - d + 1]
           : thisTrajectory.segments[0]);
       // Set it either to the correct place or last item
-      Segment hiSegment = (startIndex + d <= thisTrajectory.length() ?
+      Segment hiSegment = (startIndex + d < thisTrajectory.length() ?
           thisTrajectory.segments[startIndex + d] : thisTrajectory.segments[thisTrajectory.length()
           - 1]);
       // Set it either to the correct place, first place, or last item
-      Segment hiSegmentn = (startIndex + d <= thisTrajectory.length() ?
+      Segment hiSegmentn = (startIndex + d < thisTrajectory.length() ?
           (startIndex + d - 1 >= 0 ? thisTrajectory.segments[startIndex + d - 1] : hiSegment)
-          : thisTrajectory.segments[thisTrajectory.length()]);
+          : thisTrajectory.segments[thisTrajectory.length() - 1]);
 
       // Grab the position, otherwise we might have issues where neither is true
       double position = currentController.getQuadraturePosition() * encoderTickRatio;
