@@ -40,7 +40,7 @@ public class MotionProfile extends Command {
 
   protected void initialize() {
     for (ChickenController currentController : motionProfiles.keySet()) {
-      currentController.setControlMode(ControlMode.Velocity);
+      currentController.setControlMode(ControlMode.Position);
       currentController.config_kP(slotId, motionProfiles.get(currentController).getP());
       currentController.config_kI(slotId, motionProfiles.get(currentController).getI());
       currentController.config_kD(slotId, motionProfiles.get(currentController).getD());
@@ -61,16 +61,16 @@ public class MotionProfile extends Command {
       // Each controller's setpoint is calculated at a slightly different time, but this doesn't
       // matter, since the motion profile is "continuous."
       Properties thisProperty = motionProfiles.get(currentController);
-      double velocity = getVelocitySetpoint(currentController, timer.get(), lastTime,
+      double postiton = getPostionSetpoint(currentController, timer.get(), lastTime,
           thisProperty.getEncoderTickRatio());
-      SmartDashboard.putNumber("calculatedVelocity", velocity);
-      currentController.set(ControlMode.Velocity, velocity);
+      SmartDashboard.putNumber("calculatedVelocity", postiton);
+      currentController.set(ControlMode.Velocity, postiton);
     }
 
     lastTime = timer.get();
   }
 
-  private double getVelocitySetpoint(ChickenController currentController, double currentTime,
+  private double getPostionSetpoint(ChickenController currentController, double currentTime,
       double lastTime, double encoderMultiplier) {
 
     /*
@@ -140,7 +140,7 @@ public class MotionProfile extends Command {
 
     int length = thisTrajectory.segments.length;
     int index = (startIndex < length) ? startIndex : length - 1;
-    return thisTrajectory.segments[index].velocity / encoderMultiplier;
+    return thisTrajectory.segments[index].position / encoderMultiplier;
   }
 
   /**

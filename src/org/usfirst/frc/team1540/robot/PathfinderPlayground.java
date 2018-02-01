@@ -16,8 +16,8 @@ public class PathfinderPlayground {
 
   final static double xDistance = 1;
   final static double wheelbaseWidth = 0.62;
-  final static double maxVelocity = 0.1;
-  final static double maxAcceleration = 0.5;
+  final static double maxVelocity = 0.5;
+  final static double maxAcceleration = 5.0;
   final static double robotMaxVelocity = 2.6;
   static Waypoint[] points = new Waypoint[]{
       new Waypoint(0, 0, 0),

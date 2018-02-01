@@ -13,6 +13,7 @@ public class Properties {
 
   private double wheelDiameter = 0.1;
   private double secondsFromNeutralToFull = 0;
+
   private Trajectory trajectory;
 
   private double currentTime = 0;
@@ -21,8 +22,8 @@ public class Properties {
     this.trajectory = trajectory;
   }
 
-  public Properties(double p, double i, double d, double encoderTicksPerRev,
-      Trajectory trajectory) {
+  public Properties(double p, double i, double d, boolean reverseMotor, boolean reverseEncoder,
+      double encoderTicksPerRev, Trajectory trajectory) {
     this.p = p;
     this.i = i;
     this.d = d;
@@ -86,7 +87,7 @@ public class Properties {
     this.wheelDiameter = wheelDiameter;
   }
 
-  public double encoderTickRatio() {
+  public double getEncoderTickRatio() {
     return (1 / encoderTicksPerRev) * (wheelDiameter * Math.PI);
   }
 
