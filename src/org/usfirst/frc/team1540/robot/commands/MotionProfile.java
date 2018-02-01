@@ -3,8 +3,8 @@ package org.usfirst.frc.team1540.robot.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Trajectory;
-import jaci.pathfinder.Trajectory.Segment;
 import java.util.Map;
 import org.team1540.base.wrappers.ChickenController;
 import org.usfirst.frc.team1540.robot.Properties;
@@ -60,15 +60,18 @@ public class MotionProfile extends Command {
     for (ChickenController currentController : motionProfiles.keySet()) {
       // Each controller's setpoint is calculated at a slightly different time, but this doesn't
       // matter, since the motion profile is "continuous."
-      currentController.set(getVelocitySetpoint(currentController,
-          motionProfiles.get(currentController).encoderTickRatio(), timer.get(), lastTime));
+      Properties thisProperty = motionProfiles.get(currentController);
+      double velocity = getVelocitySetpoint(currentController, timer.get(), lastTime,
+          thisProperty.getEncoderTickRatio());
+      SmartDashboard.putNumber("calculatedVelocity", velocity);
+      currentController.set(ControlMode.Velocity, velocity);
     }
 
     lastTime = timer.get();
   }
 
-  private double getVelocitySetpoint(ChickenController currentController, double encoderTickRatio,
-      double currentTime, double lastTime) {
+  private double getVelocitySetpoint(ChickenController currentController, double currentTime,
+      double lastTime, double encoderMultiplier) {
 
     /*
       Whoa! This is weird. Although everything is ordered base on time, that's prone to getting off
@@ -87,10 +90,15 @@ public class MotionProfile extends Command {
     // Start from the current time and find the closest point.
     int startIndex = Math.toIntExact(Math.round(currentTime / dt));
 
+    SmartDashboard.putNumber("startIndex", startIndex);
+
+    // FIXME
+    /*
     // Linear search is fine since we don't expect to be going far and the overhead of a different
     // data structure or search algorithm probably isn't worth it.
     for (int d = 0; ; d++) {
 
+      SmartDashboard.putNumber("currentSearchIndex", d);
       // Set it either to the correct place or first item
       Segment loSegment = (startIndex - d >= 0 ? thisTrajectory.segments[startIndex - d]
           : thisTrajectory.segments[0]);
@@ -107,7 +115,7 @@ public class MotionProfile extends Command {
           : thisTrajectory.segments[thisTrajectory.length() - 1]);
 
       // Grab the position, otherwise we might have issues where neither is true
-      double position = currentController.getQuadraturePosition() * encoderTickRatio;
+      double position = currentController.getQuadraturePosition() * encoderMultiplier;
 
       // If the target position is between the last point's and this point's position
       // Take the one that's the least far ahead in time, then linearly interpolate between the two
@@ -128,6 +136,11 @@ public class MotionProfile extends Command {
         return thisTrajectory.segments[thisTrajectory.length() - 1].velocity;
       }
     }
+    */
+
+    int length = thisTrajectory.segments.length;
+    int index = (startIndex < length) ? startIndex : length - 1;
+    return thisTrajectory.segments[index].velocity / encoderMultiplier;
   }
 
   /**
