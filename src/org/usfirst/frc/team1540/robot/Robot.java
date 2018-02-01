@@ -84,14 +84,26 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		Trajectory[] trajectories = PathfinderPlayground.getModifiedTrajectory();
 		HashMap<ChickenController, Properties> mps = new HashMap<>();
-		mps.put(Robot.driveTrain.getDriveLeftTalon(), new Properties(trajectories[0]));
-		mps.put(Robot.driveTrain.getDriveRightTalon(), new Properties(trajectories[1]));
+		Properties lProperties = new Properties(trajectories[0]);
+		Properties rProperties = new Properties(trajectories[1]);
+		mps.put(Robot.driveTrain.getDriveLeftTalon(), lProperties);
+		mps.put(Robot.driveTrain.getDriveRightTalon(), rProperties);
+//		Robot.driveTrain.getDriveLeftTalon().setInverted(true);
 		Scheduler.getInstance().add(new MotionProfile(mps));
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putData(Scheduler.getInstance());
+		SmartDashboard
+				.putNumber("lSetpoint", Robot.driveTrain.getDriveLeftTalon().getClosedLoopTarget(0));
+		SmartDashboard
+				.putNumber("rSetpoint", Robot.driveTrain.getDriveRightTalon().getClosedLoopTarget(0));
+		SmartDashboard
+				.putNumber("lOutput", Robot.driveTrain.getDriveLeftTalon().getMotorOutputPercent());
+		SmartDashboard
+				.putNumber("rOutput", Robot.driveTrain.getDriveRightTalon().getMotorOutputPercent());
 	}
 
 	@Override
