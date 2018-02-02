@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Trajectory;
-import java.util.HashMap;
-import org.team1540.base.wrappers.ChickenController;
+import java.util.HashSet;
 import org.usfirst.frc.team1540.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team1540.robot.commands.CancelShooter;
 import org.usfirst.frc.team1540.robot.commands.Eject;
@@ -83,11 +82,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		Trajectory[] trajectories = PathfinderPlayground.getModifiedTrajectory();
-		HashMap<ChickenController, Properties> mps = new HashMap<>();
-		Properties lProperties = new Properties(trajectories[0]);
-		Properties rProperties = new Properties(trajectories[1]);
-		mps.put(Robot.driveTrain.getDriveLeftTalon(), lProperties);
-		mps.put(Robot.driveTrain.getDriveRightTalon(), rProperties);
+    HashSet<Properties> mps = new HashSet<>();
+    Properties lProperties = new Properties(Robot.driveTrain::getDriveLeftTalonPosititon,
+        Robot.driveTrain::setLeft, trajectories[0]);
+    Properties rProperties = new Properties(Robot.driveTrain::getDriveRightTalonPosition,
+        Robot.driveTrain::setRight, trajectories[1]);
+    mps.add(lProperties);
+    mps.add(rProperties);
 //		Robot.driveTrain.getDriveLeftTalon().setInverted(true);
 		Scheduler.getInstance().add(new MotionProfile(mps));
 	}
@@ -96,14 +97,6 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putData(Scheduler.getInstance());
-		SmartDashboard
-				.putNumber("lSetpoint", Robot.driveTrain.getDriveLeftTalon().getClosedLoopTarget(0));
-		SmartDashboard
-				.putNumber("rSetpoint", Robot.driveTrain.getDriveRightTalon().getClosedLoopTarget(0));
-		SmartDashboard
-				.putNumber("lOutput", Robot.driveTrain.getDriveLeftTalon().getMotorOutputPercent());
-		SmartDashboard
-				.putNumber("rOutput", Robot.driveTrain.getDriveRightTalon().getMotorOutputPercent());
 	}
 
 	@Override

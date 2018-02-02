@@ -1,23 +1,21 @@
 package org.usfirst.frc.team1540.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Trajectory;
-import java.util.Map;
-import org.team1540.base.wrappers.ChickenController;
+import java.util.Set;
 import org.usfirst.frc.team1540.robot.Properties;
 
 public class MotionProfile extends Command {
 
   private int slotId = 0;
-  private Map<ChickenController, Properties> motionProfiles;
+  private Set<Properties> motionProfiles;
   private Timer timer = new Timer();
   private double lastTime;
   private boolean isFinished = false;
 
-  public MotionProfile(Map<ChickenController, Properties> motionProfiles) {
+  public MotionProfile(Set<Properties> motionProfiles) {
     this.motionProfiles = motionProfiles;
   }
 
@@ -29,48 +27,35 @@ public class MotionProfile extends Command {
     this.slotId = slotId;
   }
 
-  public Map<ChickenController, Properties> getMotionProfiles() {
+  public Set<Properties> getMotionProfiles() {
     return motionProfiles;
   }
 
   public void setMotionProfiles(
-      Map<ChickenController, Properties> motionProfiles) {
+      Set<Properties> motionProfiles) {
     this.motionProfiles = motionProfiles;
   }
 
   protected void initialize() {
-    for (ChickenController currentController : motionProfiles.keySet()) {
-      currentController.setControlMode(ControlMode.Position);
-      currentController.config_kP(slotId, motionProfiles.get(currentController).getP());
-      currentController.config_kI(slotId, motionProfiles.get(currentController).getI());
-      currentController.config_kD(slotId, motionProfiles.get(currentController).getD());
-      currentController.config_kF(slotId, motionProfiles.get(currentController).getF());
-      currentController.config_IntegralZone(slotId, motionProfiles.get(currentController)
-          .getiZone());
-      currentController.configClosedloopRamp(motionProfiles.get(currentController)
-          .getSecondsFromNeutralToFull());
-    }
     timer.start();
     lastTime = timer.get();
     isFinished = false;
   }
 
   protected void execute() {
-
-    for (ChickenController currentController : motionProfiles.keySet()) {
+    for (Properties currentProperty : motionProfiles) {
       // Each controller's setpoint is calculated at a slightly different time, but this doesn't
       // matter, since the motion profile is "continuous."
-      Properties thisProperty = motionProfiles.get(currentController);
-      double postiton = getPostionSetpoint(currentController, timer.get(), lastTime,
-          thisProperty.getEncoderTickRatio());
+      double postiton = getPostionSetpoint(currentProperty, timer.get(), lastTime,
+          currentProperty.getEncoderTickRatio());
       SmartDashboard.putNumber("calculatedVelocity", postiton);
-      currentController.set(ControlMode.Velocity, postiton);
+      currentProperty.getSetMotorPositionFunction().accept(postiton);
     }
 
     lastTime = timer.get();
   }
 
-  private double getPostionSetpoint(ChickenController currentController, double currentTime,
+  private double getPostionSetpoint(Properties currentProperty, double currentTime,
       double lastTime, double encoderMultiplier) {
 
     /*
@@ -84,7 +69,7 @@ public class MotionProfile extends Command {
       setpoint being a little wonky, as though it's lagging. Otherwise you shouldn't really notice.
     */
 
-    Trajectory thisTrajectory = motionProfiles.get(currentController).getTrajectory();
+    Trajectory thisTrajectory = currentProperty.getTrajectory();
     double dt = thisTrajectory.segments[0].dt;
 
     // Start from the current time and find the closest point.
