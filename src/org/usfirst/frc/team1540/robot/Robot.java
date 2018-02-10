@@ -6,6 +6,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Trajectory;
 import java.util.HashSet;
+import org.team1540.base.power.PowerManager;
 import org.usfirst.frc.team1540.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team1540.robot.commands.CancelShooter;
 import org.usfirst.frc.team1540.robot.commands.Eject;
@@ -45,6 +47,14 @@ public class Robot extends IterativeRobot {
 	
 	public static final SendableChooser<Command> driveModeChooser = new SendableChooser<Command>();
 
+	private static Command autoCommand = new Command() {
+		@Override
+		protected boolean isFinished() {
+			return true;
+		}
+	};
+	private PowerDistributionPanel pdp = new PowerDistributionPanel();
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -67,6 +77,12 @@ public class Robot extends IterativeRobot {
 		driveModeChooser.addDefault("Tank Drive", new TankDrive());
 		driveModeChooser.addObject("Arcade Drive", new ArcadeDrive());
 		SmartDashboard.putData("Drive Mode", driveModeChooser);
+
+//		PowerManager.getInstance().setVoltageMargin(10);
+//		PowerManager.getInstance().setVoltageDipLow(12);
+//		PowerManager.getInstance().setCurrentSpikePeak(10);
+//		PowerManager.getInstance().setCurrentTarget(10);
+//		PowerManager.getInstance().setCurrentSpikeLength(0.2);
 	}
 
 	@Override
@@ -76,31 +92,41 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
+//		Scheduler.getInstance().run();
 	}
 
 	@Override
 	public void autonomousInit() {
+//		autoCommand = new PositionTest();
+//		Scheduler.getInstance().add(autoCommand);
 		Trajectory[] trajectories = PathfinderPlayground.getModifiedTrajectory();
     HashSet<Properties> mps = new HashSet<>();
     Properties lProperties = new Properties(Robot.driveTrain::getDriveLeftTalonPosititon,
-        Robot.driveTrain::setLeft, trajectories[0]);
+				Robot.driveTrain::setLeftPosition, trajectories[0]);
     Properties rProperties = new Properties(Robot.driveTrain::getDriveRightTalonPosition,
-        Robot.driveTrain::setRight, trajectories[1]);
+				Robot.driveTrain::setRightPosition, trajectories[1]);
+		lProperties.setEncoderTicksPerRev(1556);
+		rProperties.setEncoderTicksPerRev(1556);
+		lProperties.setWheelDiameter(.2);
+		rProperties.setWheelDiameter(.2);
     mps.add(lProperties);
     mps.add(rProperties);
-//		Robot.driveTrain.getDriveLeftTalon().setInverted(true);
-		Scheduler.getInstance().add(new MotionProfile(mps));
+		Robot.driveTrain.prepareForMotionProfiling();
+		autoCommand = new MotionProfile(mps);
+		Scheduler.getInstance().add(autoCommand);
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putData(Scheduler.getInstance());
+		Robot.driveTrain.displayAutoInfo();
+		SmartDashboard.putBoolean("Is Limiting", PowerManager.getInstance().isLimiting());
 	}
 
 	@Override
 	public void teleopInit() {
+		autoCommand.cancel();
 		driveTrain.actuallyInitDefaultCommand();
 	}
 
@@ -109,11 +135,17 @@ public class Robot extends IterativeRobot {
 		
 		Scheduler.getInstance().run();
 
-		SmartDashboard.putNumber("Flywheel Current", shooter.getCurrent());
-		SmartDashboard.putNumber("Flywheel Setpoint", shooter.getSetpoint());
-		SmartDashboard.putNumber("Flywheel Speed", shooter.getSpeed());
-		SmartDashboard.putBoolean("Flywheel Up To Speed", shooter.upToSpeed(tuning.getFlywheelTargetSpeed()));
-		SmartDashboard.putNumber("Intake Arm Current", intakeArm.getCurrent());
+//		SmartDashboard.putNumber("Flywheel Current", shooter.getCurrent());
+//		SmartDashboard.putNumber("Flywheel Setpoint", shooter.getSetpoint());
+//		SmartDashboard.putNumber("Flywheel Speed", shooter.getSpeed());
+//		SmartDashboard.putBoolean("Flywheel Up To Speed", shooter.upToSpeed(
+//				tuning.getFlywheelTargetSpeed()));
+//		SmartDashboard.putNumber("Intake Arm Current", intakeArm.getCurrent());
+//		SmartDashboard.putBoolean("Is Limiting", PowerManager.getInstance().isLimiting());
+//		SmartDashboard.putBoolean("Is Spiking/Dipping", PowerManager.getInstance().currentIsSpiking() ||
+//				PowerManager.getInstance().voltageIsDipping());
+//		SmartDashboard.putNumber("Battery Voltage", RobotController.getBatteryVoltage());
+//		SmartDashboard.putNumber("Total Current", pdp.getTotalCurrent());
 
 		OI.driver.setRumble(RumbleType.kRightRumble,
 				shooter.upToSpeed(Robot.tuning.getFlywheelTargetSpeed()) ? 0.5 : 0);
