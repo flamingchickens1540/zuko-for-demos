@@ -11,29 +11,29 @@ public class Properties {
   private double wheelDiameter = 0.1;
   private double secondsFromNeutralToFull = 0;
 
-  private DoubleSupplier getEncoderPositionFunction;
-  private DoubleConsumer setMotorPositionFunction;
+  private DoubleSupplier getEncoderVelocityFunction;
+  private DoubleConsumer setMotorVelocityFunction;
 
   private Trajectory trajectory;
 
   private double currentTime = 0;
 
-  public Properties(DoubleSupplier getEncoderPositionFunction,
-      DoubleConsumer setMotorPositionFunction, Trajectory trajectory) {
-    this.getEncoderPositionFunction = getEncoderPositionFunction;
-    this.setMotorPositionFunction = setMotorPositionFunction;
+  public Properties(DoubleSupplier getEncoderVelocityFunction,
+      DoubleConsumer setMotorVelocityFunction, Trajectory trajectory) {
+    this.getEncoderVelocityFunction = getEncoderVelocityFunction;
+    this.setMotorVelocityFunction = setMotorVelocityFunction;
     this.trajectory = trajectory;
   }
 
   public Properties(double encoderTicksPerRev,
       double wheelDiameter, double secondsFromNeutralToFull,
-      DoubleSupplier getEncoderPositionFunction,
-      DoubleConsumer setMotorPositionFunction, Trajectory trajectory) {
+      DoubleSupplier getEncoderVelocityFunction,
+      DoubleConsumer setMotorVelocityFunction, Trajectory trajectory) {
     this.encoderTicksPerRev = encoderTicksPerRev;
     this.wheelDiameter = wheelDiameter;
     this.secondsFromNeutralToFull = secondsFromNeutralToFull;
-    this.getEncoderPositionFunction = getEncoderPositionFunction;
-    this.setMotorPositionFunction = setMotorPositionFunction;
+    this.getEncoderVelocityFunction = getEncoderVelocityFunction;
+    this.setMotorVelocityFunction = setMotorVelocityFunction;
     this.trajectory = trajectory;
   }
 
@@ -69,20 +69,20 @@ public class Properties {
     this.secondsFromNeutralToFull = secondsFromNeutralToFull;
   }
 
-  public DoubleSupplier getGetEncoderPositionFunction() {
-    return getEncoderPositionFunction;
+  public DoubleSupplier getGetEncoderVelocityFunction() {
+    return getEncoderVelocityFunction;
   }
 
-  public void setGetEncoderPositionFunction(DoubleSupplier getEncoderPositionFunction) {
-    this.getEncoderPositionFunction = getEncoderPositionFunction;
+  public void setGetEncoderVelocityFunction(DoubleSupplier getEncoderVelocityFunction) {
+    this.getEncoderVelocityFunction = getEncoderVelocityFunction;
   }
 
-  public DoubleConsumer getSetMotorPositionFunction() {
-    return setMotorPositionFunction;
+  public DoubleConsumer getSetMotorVelocityFunction() {
+    return setMotorVelocityFunction;
   }
 
-  public void setSetMotorPositionFunction(DoubleConsumer setMotorPositionFunction) {
-    this.setMotorPositionFunction = setMotorPositionFunction;
+  public void setSetMotorVelocityFunction(DoubleConsumer setMotorVelocityFunction) {
+    this.setMotorVelocityFunction = setMotorVelocityFunction;
   }
 
 }

@@ -46,10 +46,10 @@ public class MotionProfile extends Command {
     for (Properties currentProperty : motionProfiles) {
       // Each controller's setpoint is calculated at a slightly different time, but this doesn't
       // matter, since the motion profile is "continuous."
-      double position = getPostionSetpoint(currentProperty, timer.get(), lastTime,
+      double velocity = getPostionSetpoint(currentProperty, timer.get(), lastTime,
           currentProperty.getEncoderTickRatio());
-      SmartDashboard.putNumber("calculatedPosition", position);
-      currentProperty.getSetMotorPositionFunction().accept(position);
+      SmartDashboard.putNumber("calculatedVelocity", velocity);
+      currentProperty.getSetMotorVelocityFunction().accept(velocity);
     }
 
     lastTime = timer.get();
@@ -125,7 +125,8 @@ public class MotionProfile extends Command {
 
     int length = thisTrajectory.segments.length;
     int index = (startIndex < length) ? startIndex : length - 1;
-    return thisTrajectory.segments[index].position / encoderMultiplier;
+    // FIXME math
+    return thisTrajectory.segments[index].velocity / encoderMultiplier * 0.1;
   }
 
   /**

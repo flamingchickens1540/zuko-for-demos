@@ -61,27 +61,27 @@ public class DriveTrain extends Subsystem implements PowerManageable {
 		driveRightTalon.set(value);
 	}
 
-  public double getDriveLeftTalonPosititon() {
-    return driveLeftTalon.getQuadraturePosition();
+  public double getDriveLeftTalonVelocity() {
+    return driveLeftTalon.getQuadratureVelocity();
   }
 
-  public double getDriveRightTalonPosition() {
-    return driveRightTalon.getQuadraturePosition();
+  public double getDriveRightTalonVelocity() {
+    return driveRightTalon.getQuadratureVelocity();
   }
 
-  public void setLeftPosition(double position) {
-    driveLeftTalon.set(ControlMode.Position, position);
+  public void setLeftVelocity(double velocity) {
+    driveLeftTalon.set(ControlMode.Velocity, velocity);
   }
 
-  public void setRightPosition(double position) {
-    driveRightTalon.set(ControlMode.Position, position);
+  public void setRightVelocity(double velocity) {
+    driveRightTalon.set(ControlMode.Velocity, velocity);
   }
 
   public void prepareForMotionProfiling() {
-    driveRightTalon.setControlMode(ControlMode.Position);
+    driveRightTalon.setControlMode(ControlMode.Velocity);
     driveRightBTalon.setControlMode(ControlMode.Follower);
     driveRightCTalon.setControlMode(ControlMode.Follower);
-    driveLeftTalon.setControlMode(ControlMode.Position);
+    driveLeftTalon.setControlMode(ControlMode.Velocity);
     driveLeftBTalon.setControlMode(ControlMode.Follower);
     driveLeftCTalon.setControlMode(ControlMode.Follower);
     driveRightBTalon.set(driveRightTalon.getDeviceID());
@@ -111,9 +111,6 @@ public class DriveTrain extends Subsystem implements PowerManageable {
     driveRightTalon.configClosedloopRamp(0);
     driveRightBTalon.configClosedloopRamp(0);
     driveRightCTalon.configClosedloopRamp(0);
-
-    driveLeftTalon.setSelectedSensorPosition(0);
-    driveRightTalon.setSelectedSensorPosition(0);
   }
 
   public void displayAutoInfo() {
@@ -125,8 +122,8 @@ public class DriveTrain extends Subsystem implements PowerManageable {
         .putNumber("lOutput", driveLeftTalon.getMotorOutputPercent());
     SmartDashboard
         .putNumber("rOutput", driveRightTalon.getMotorOutputPercent());
-    SmartDashboard.putNumber("lPos", driveLeftTalon.getQuadraturePosition());
-    SmartDashboard.putNumber("rPos", driveRightTalon.getQuadraturePosition());
+    SmartDashboard.putNumber("lVelocity", driveLeftTalon.getQuadratureVelocity());
+    SmartDashboard.putNumber("rVelocity", driveRightTalon.getQuadratureVelocity());
     SmartDashboard.putBoolean("lMotorPhase", driveLeftTalon.getInverted());
     SmartDashboard.putBoolean("rMotorPhase", driveRightTalon.getInverted());
   }
