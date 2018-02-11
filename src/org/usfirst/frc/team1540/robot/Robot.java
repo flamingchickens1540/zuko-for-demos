@@ -102,9 +102,11 @@ public class Robot extends IterativeRobot {
 		Trajectory[] trajectories = PathfinderPlayground.getModifiedTrajectory();
     HashSet<Properties> mps = new HashSet<>();
 		Properties lProperties = new Properties(Robot.driveTrain::getDriveLeftTalonVelocity,
-				Robot.driveTrain::setLeftVelocity, trajectories[0]);
+				Robot.driveTrain::setLeftVelocity, Robot.driveTrain::getDriveLeftTalonPosition,
+				trajectories[0]);
 		Properties rProperties = new Properties(Robot.driveTrain::getDriveRightTalonVelocity,
-				Robot.driveTrain::setRightVelocity, trajectories[1]);
+				Robot.driveTrain::setRightVelocity, Robot.driveTrain::getDriveRightTalonPosition,
+				trajectories[1]);
 		lProperties.setEncoderTicksPerRev(1556);
 		rProperties.setEncoderTicksPerRev(1556);
 		lProperties.setWheelDiameter(.2);

@@ -14,14 +14,13 @@ public class PathfinderPlayground {
 //      new Waypoint(0, 0, 0)                         // Waypoint @ x=0,  y=0,  exit angle=0 radians
 //  };
 
-  final static double xDistance = 1;
   final static double wheelbaseWidth = 0.62;
   final static double maxVelocity = 0.5;
   final static double maxAcceleration = 5.0;
   final static double robotMaxVelocity = 2.6;
   static Waypoint[] points = new Waypoint[]{
       new Waypoint(0, 0, 0),
-      new Waypoint(xDistance, 0, 0)
+      new Waypoint(1.5, 1.5, Pathfinder.d2r(90))
   };
 
 //  Timer theTimer = new Timer();
