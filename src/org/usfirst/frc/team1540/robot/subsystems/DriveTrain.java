@@ -69,6 +69,14 @@ public class DriveTrain extends Subsystem implements PowerManageable {
     return driveRightTalon.getQuadratureVelocity();
   }
 
+  public double getDriveLeftTalonPosition() {
+    return driveLeftTalon.getQuadraturePosition();
+  }
+
+  public double getDriveRightTalonPosition() {
+    return driveRightTalon.getQuadraturePosition();
+  }
+
   public void setLeftVelocity(double velocity) {
     driveLeftTalon.set(ControlMode.Velocity, velocity);
   }
@@ -111,6 +119,9 @@ public class DriveTrain extends Subsystem implements PowerManageable {
     driveRightTalon.configClosedloopRamp(0);
     driveRightBTalon.configClosedloopRamp(0);
     driveRightCTalon.configClosedloopRamp(0);
+
+    driveLeftTalon.setSelectedSensorPosition(0);
+    driveRightTalon.setSelectedSensorPosition(0);
   }
 
   public void displayAutoInfo() {
@@ -124,8 +135,8 @@ public class DriveTrain extends Subsystem implements PowerManageable {
         .putNumber("rOutput", driveRightTalon.getMotorOutputPercent());
     SmartDashboard.putNumber("lVelocity", driveLeftTalon.getQuadratureVelocity());
     SmartDashboard.putNumber("rVelocity", driveRightTalon.getQuadratureVelocity());
-    SmartDashboard.putBoolean("lMotorPhase", driveLeftTalon.getInverted());
-    SmartDashboard.putBoolean("rMotorPhase", driveRightTalon.getInverted());
+//    SmartDashboard.putBoolean("lMotorPhase", driveLeftTalon.getInverted());
+//    SmartDashboard.putBoolean("rMotorPhase", driveRightTalon.getInverted());
   }
 
   @Override
