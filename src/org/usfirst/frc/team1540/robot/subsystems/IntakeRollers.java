@@ -1,16 +1,15 @@
 package org.usfirst.frc.team1540.robot.subsystems;
 
+import org.team1540.base.wrappers.ChickenTalon;
+import org.team1540.base.wrappers.ChickenTalon.TalonControlMode;
 import org.usfirst.frc.team1540.robot.RobotMap;
-
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class IntakeRollers extends Subsystem {
 	
-	private final CANTalon armRollerTalon = new CANTalon(RobotMap.intakeArmRollers);
-	private final CANTalon rollersTalon = new CANTalon(RobotMap.intakeRollers);
+	private final ChickenTalon armRollerTalon = new ChickenTalon(RobotMap.intakeArmRollers);
+	private final ChickenTalon rollersTalon = new ChickenTalon(RobotMap.intakeRollers);
 	
 	public IntakeRollers() {
 //		armRollerTalon.reverseSensor(false);

@@ -1,27 +1,26 @@
 package org.usfirst.frc.team1540.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import org.team1540.base.wrappers.ChickenTalon;
+import org.team1540.base.wrappers.ChickenTalon.TalonControlMode;
 import org.usfirst.frc.team1540.robot.Robot;
 import org.usfirst.frc.team1540.robot.RobotMap;
 
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
-import com.ctre.CANTalon.TalonControlMode;
-
-import edu.wpi.first.wpilibj.command.Subsystem;
-
 public class Shooter extends Subsystem {
 	
-	private final CANTalon flywheelLeftTalon = new CANTalon(RobotMap.flywheelL);
-	private final CANTalon flywheelRightTalon = new CANTalon(RobotMap.flywheelR);
+	private final ChickenTalon flywheelLeftTalon = new ChickenTalon(RobotMap.flywheelL);
+	private final ChickenTalon flywheelRightTalon = new ChickenTalon(RobotMap.flywheelR);
 	
 	public Shooter() {
-		flywheelLeftTalon.setFeedbackDevice(FeedbackDevice.EncRising);
+		flywheelLeftTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         flywheelLeftTalon.reverseSensor(false);
         flywheelLeftTalon.reverseOutput(false);
         flywheelLeftTalon.configNominalOutputVoltage(+0f, -0f);
         flywheelLeftTalon.configPeakOutputVoltage(+12f, -12f);
         flywheelLeftTalon.configEncoderCodesPerRev(1024);
-        flywheelLeftTalon.changeControlMode(TalonControlMode.Speed);
+//        flywheelLeftTalon.changeControlMode(TalonControlMode.Speed);
+		flywheelLeftTalon.changeControlMode(TalonControlMode.PercentVbus);
         flywheelRightTalon.reverseSensor(false);
         flywheelRightTalon.reverseOutput(false);
         flywheelRightTalon.changeControlMode(TalonControlMode.Follower);
@@ -47,17 +46,17 @@ public class Shooter extends Subsystem {
 		flywheelLeftTalon.set(0);
 		flywheelRightTalon.set(0);
 	}
-	
-	public void setSpeed(double rpm) {
-		flywheelLeftTalon.changeControlMode(TalonControlMode.Speed);
-		flywheelRightTalon.changeControlMode(TalonControlMode.Follower);
-        flywheelRightTalon.set(flywheelLeftTalon.getDeviceID());
-		flywheelLeftTalon.setSetpoint(rpm);
-	}
-	
-	public double getSetpoint() {
-		return flywheelLeftTalon.getSetpoint();
-	}
+
+//	public void setSpeed(double rpm) {
+//		flywheelLeftTalon.changeControlMode(TalonControlMode.Speed);
+//		flywheelRightTalon.changeControlMode(TalonControlMode.Follower);
+//        flywheelRightTalon.set(flywheelLeftTalon.getDeviceID());
+//		flywheelLeftTalon.setSetpoint(rpm);
+//	}
+
+//	public double getSetpoint() {
+//		return flywheelLeftTalon.getSetpoint();
+//	}
 	
 	public double getSpeed() {
 //		return flywheelLeftTalon.getSpeed();

@@ -1,24 +1,22 @@
 package org.usfirst.frc.team1540.robot.subsystems;
 
+import org.team1540.base.wrappers.ChickenTalon;
+import org.team1540.base.wrappers.ChickenTalon.TalonControlMode;
 import org.usfirst.frc.team1540.robot.Robot;
 import org.usfirst.frc.team1540.robot.RobotMap;
 import org.usfirst.frc.team1540.robot.RobotUtil;
-import org.usfirst.frc.team1540.robot.commands.TankDrive;
-
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
 	
-	private final CANTalon driveLeftTalon = new CANTalon(RobotMap.driveLeftA);
-    private final CANTalon driveLeftBTalon = new CANTalon(RobotMap.driveLeftB);
-    private final CANTalon driveLeftCTalon = new CANTalon(RobotMap.driveLeftC);
+	private final ChickenTalon driveLeftTalon = new ChickenTalon(RobotMap.driveLeftA);
+    private final ChickenTalon driveLeftBTalon = new ChickenTalon(RobotMap.driveLeftB);
+    private final ChickenTalon driveLeftCTalon = new ChickenTalon(RobotMap.driveLeftC);
 	
-	private final CANTalon driveRightTalon = new CANTalon(RobotMap.driveRightA);
-    private final CANTalon driveRightBTalon = new CANTalon(RobotMap.driveRightB);
-    private final CANTalon driveRightCTalon = new CANTalon(RobotMap.driveRightC);
+	private final ChickenTalon driveRightTalon = new ChickenTalon(RobotMap.driveRightA);
+    private final ChickenTalon driveRightBTalon = new ChickenTalon(RobotMap.driveRightB);
+    private final ChickenTalon driveRightCTalon = new ChickenTalon(RobotMap.driveRightC);
 	
     public DriveTrain() {
     	driveRightTalon.changeControlMode(TalonControlMode.PercentVbus);

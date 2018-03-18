@@ -30,12 +30,14 @@ public class SpinupFlywheel extends CommandGroup {
 			
 			@Override
 			protected void initialize() {
-				Robot.shooter.setSpeed(Robot.tuning.getFlywheelTargetSpeed());
+//				Robot.shooter.setSpeed(Robot.tuning.getFlywheelTargetSpeed());
+				Robot.shooter.set(1);
 			}
 			
 			@Override
 			protected boolean isFinished() {
-				return Robot.shooter.upToSpeed(Robot.tuning.getFlywheelTargetSpeed());
+//				return Robot.shooter.upToSpeed(Robot.tuning.getFlywheelTargetSpeed());
+				return true;
 			}
 			
 		});
