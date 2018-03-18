@@ -1,17 +1,16 @@
 
 package org.usfirst.frc.team1540.robot;
 
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team1540.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team1540.robot.commands.CancelShooter;
 import org.usfirst.frc.team1540.robot.commands.Eject;
@@ -98,7 +97,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putNumber("Flywheel Current", shooter.getCurrent());
-		SmartDashboard.putNumber("Flywheel Setpoint", shooter.getSetpoint());
+//		SmartDashboard.putNumber("Flywheel Setpoint", shooter.getSetpoint());
 		SmartDashboard.putNumber("Flywheel Speed", shooter.getSpeed());
 		SmartDashboard.putBoolean("Flywheel Up To Speed", shooter.upToSpeed(tuning.getFlywheelTargetSpeed()));
 		SmartDashboard.putNumber("Intake Arm Current", intakeArm.getCurrent());
