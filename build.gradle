@@ -7,7 +7,7 @@ plugins {
 
 def TEAM = 1540
 def ROBOT_CLASS = "org.usfirst.frc.team1540.robot.Robot"
-
+//
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
@@ -35,11 +35,13 @@ dependencies {
     compile 'org.team1540:rooster:master-SNAPSHOT'
 }
 
+
+
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
 // knows where to look for our Robot Class.
 jar {
-    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     manifest jaci.openrio.gradle.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 

@@ -2,6 +2,7 @@
   <library name="Gradle: org.team1540:rooster:master-SNAPSHOT">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/c30851debfed1517aef5ec6ddcd6a2b384a10153/rooster-master-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/87ff9c6d67e3cc84652c387fd882696b48a54b5/rooster-master-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
@@ -10,6 +11,15 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/a86a6832da73fd290a624da5830f4f95c328c436/rooster-master-SNAPSHOT-sources.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/3c895d8051f5581fe2b23030503902d27d528802/rooster-master-SNAPSHOT-sources.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/80765902a30fd2cbb68d53532dbc444e648596b7/rooster-master-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/f97f84c4a6763835a3a2fee6007f2cccb915b799/rooster-master-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/4b2e5c6d6e92f49ada2e78d1975c72f83137d60e/rooster-master-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/8fd252ad4757b705b2d166bea8688311f6ad0cb4/rooster-master-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/42becb73b2511b038480b363ab0c30ddd48561/rooster-master-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/6a04a109232ec196d618174a7b9a389ff92baf78/rooster-master-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/f18ac1ce2979364b3bec70369d6cfac76d2bfb1/rooster-master-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/4ff367e15543aad8a2b4bfde8d0095e46300141b/rooster-master-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/daa90977259b9a1b053b52f14efa928771a181d3/rooster-master-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.team1540/rooster/master-SNAPSHOT/9c1a24fc3d11a912e0181e2d394e459149e1ff11/rooster-master-SNAPSHOT-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

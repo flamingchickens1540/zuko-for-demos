@@ -15,18 +15,18 @@ public class PortcullisArms extends Subsystem {
 	public PortcullisArms() {
 		leftArmTalon.changeControlMode(TalonControlMode.PercentVbus);
 		rightArmTalon.changeControlMode(TalonControlMode.PercentVbus);
-		leftArmTalon.reverseOutput(false);
-		rightArmTalon.reverseOutput(true);
+		leftArmTalon.reverseOutput(true);
+		rightArmTalon.reverseOutput(false);
 	}
 	
 	public void set(double value) {
-		leftArmTalon.set(-value);
+		leftArmTalon.set(value);
 		rightArmTalon.set(value);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new JoystickPortcullisArms());
+//		setDefaultCommand(new JoystickPortcullisArms());
 	}
 
 }

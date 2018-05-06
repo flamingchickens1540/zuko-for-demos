@@ -12,13 +12,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1540.robot.commands.ArcadeDrive;
-import org.usfirst.frc.team1540.robot.commands.CancelShooter;
-import org.usfirst.frc.team1540.robot.commands.Eject;
-import org.usfirst.frc.team1540.robot.commands.FireShooter;
-import org.usfirst.frc.team1540.robot.commands.Intake;
-import org.usfirst.frc.team1540.robot.commands.SpinupFlywheel;
-import org.usfirst.frc.team1540.robot.commands.TankDrive;
+import org.usfirst.frc.team1540.robot.commands.*;
 import org.usfirst.frc.team1540.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1540.robot.subsystems.IntakeArm;
 import org.usfirst.frc.team1540.robot.subsystems.IntakeRollers;
@@ -61,6 +55,9 @@ public class Robot extends IterativeRobot {
 		OI.buttonSpinup.whenPressed(new SpinupFlywheel());
 		OI.buttonFire.whenPressed(new FireShooter());
 		OI.buttonCancelShooter.whenPressed(new CancelShooter());
+
+//		OI.kidIntake.whenPressed(new Intake());
+//		OI.kidShoot.whenPressed(new SpinupAndShoot());
 		
 		driveModeChooser.addDefault("Tank Drive", new TankDrive());
 		driveModeChooser.addObject("Arcade Drive", new ArcadeDrive());

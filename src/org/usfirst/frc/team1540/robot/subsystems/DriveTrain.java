@@ -7,6 +7,7 @@ import org.usfirst.frc.team1540.robot.RobotMap;
 import org.usfirst.frc.team1540.robot.RobotUtil;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.team1540.robot.commands.KidDrive;
 
 public class DriveTrain extends Subsystem {
 	
@@ -41,7 +42,8 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void actuallyInitDefaultCommand() {
-		setDefaultCommand(Robot.driveModeChooser.getSelected());
+//		setDefaultCommand(Robot.driveModeChooser.getSelected());
+		setDefaultCommand(new KidDrive());
 	}
 	
 	public void tankDrive(double leftValue, double rightValue) {

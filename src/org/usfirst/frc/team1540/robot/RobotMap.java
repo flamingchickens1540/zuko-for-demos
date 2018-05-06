@@ -16,7 +16,7 @@ public class RobotMap {
 	public static int driveRightB = 5;
 	public static int driveRightC = 6;
 	
-	public static int intakeArmRollers = 7;
+	public static int intakeArmRollers = 12; // 7;
 	public static int intakeRollers = 8;
 	public static int intakeArm = 9;
 	

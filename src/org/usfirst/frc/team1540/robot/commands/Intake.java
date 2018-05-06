@@ -39,17 +39,17 @@ public class Intake extends CommandGroup {
 		});
 		
 		addParallel(new TimedCommand(1) {
-			
+
 			@Override
 			protected void initialize() {
 				Robot.intakeArm.set(Robot.tuning.getIntakeArmValue());
 			}
-			
+
 			@Override
 			protected void end() {
 				Robot.intakeArm.set(0);
 			}
-			
+
 		});
 		
 	}

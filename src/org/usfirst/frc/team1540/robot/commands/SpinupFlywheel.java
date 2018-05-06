@@ -31,7 +31,7 @@ public class SpinupFlywheel extends CommandGroup {
 			@Override
 			protected void initialize() {
 //				Robot.shooter.setSpeed(Robot.tuning.getFlywheelTargetSpeed());
-				Robot.shooter.set(1);
+				Robot.shooter.set(0.65);
 			}
 			
 			@Override
